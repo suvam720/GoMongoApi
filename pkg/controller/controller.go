@@ -35,7 +35,7 @@ func MarkCompleted(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteOneTask(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/x-www-form-urlencode")
 	w.Header().Set("Allow-Control-Allow-Methods", "DELETE")
 
 	params := mux.Vars(r)
@@ -44,7 +44,7 @@ func DeleteOneTask(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteAllTask(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/x-www-form-urlencode")
 	w.Header().Set("Allow-Control-Allow-Methods", "DELETE")
 
 	count := dbhelper.DeleteTasks()

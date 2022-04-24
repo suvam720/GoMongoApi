@@ -37,17 +37,17 @@ func GetTasks() []primitive.M {
 	return tasks
 }
 
-func UpdateTask(toskId string){
-	id,err:=primitive.ObjectIDFromHex(toskId)
-	if err!=nil{
+func UpdateTask(toskId string) {
+	id, err := primitive.ObjectIDFromHex(toskId)
+	if err != nil {
 		log.Fatal(err)
 	}
 
-	filter:=bson.M{"_id":id}
-	update:=bson.M{"$set":bson.M{"completed":true}}
+	filter := bson.M{"_id": id}
+	update := bson.M{"$set": bson.M{"completed": true}}
 
-	res,err:= database.Callection.UpdateOne(context.Background(),filter,update)
-	if err!=nil{
+	res, err := database.Callection.UpdateOne(context.Background(), filter, update)
+	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println(res.ModifiedCount)
@@ -66,7 +66,7 @@ func DeleteTask(toskId string) {
 }
 
 func DeleteTasks() int64 {
-	deleteCount, err := database.Callection.DeleteMany(context.Background(), bson.D{})
+	deleteCount, err := database.Callection.DeleteMany(context.Background(), bson.D{{}})
 	if err != nil {
 		log.Fatal(err)
 	}
