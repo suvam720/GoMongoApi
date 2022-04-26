@@ -10,6 +10,7 @@ import (
 )
 
 func InsertOneTask(w http.ResponseWriter, r *http.Request) {
+
 	w.Header().Set("Content-Type", "application/x-www-form-urlencode")
 	w.Header().Set("Allow-Control-Allow-Methods", "POST")
 
@@ -20,14 +21,18 @@ func InsertOneTask(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetAllTask(w http.ResponseWriter, r *http.Request) {
+
 	w.Header().Set("Content-Type", "application/json")
+
 	allTasks := dbhelper.GetTasks()
 	json.NewEncoder(w).Encode(allTasks)
 }
 
 func MarkCompleted(w http.ResponseWriter, r *http.Request) {
+
 	w.Header().Set("Content-Type", "application/x-www-form-urlencode")
 	w.Header().Set("Allow-Control-Allow-Methods", "POST")
+
 	params := mux.Vars(r)
 	dbhelper.UpdateTask(params["id"])
 	json.NewEncoder(w).Encode(params["id"])
@@ -35,6 +40,7 @@ func MarkCompleted(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteOneTask(w http.ResponseWriter, r *http.Request) {
+
 	w.Header().Set("Content-Type", "application/x-www-form-urlencode")
 	w.Header().Set("Allow-Control-Allow-Methods", "DELETE")
 
@@ -44,6 +50,7 @@ func DeleteOneTask(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteAllTask(w http.ResponseWriter, r *http.Request) {
+	
 	w.Header().Set("Content-Type", "application/x-www-form-urlencode")
 	w.Header().Set("Allow-Control-Allow-Methods", "DELETE")
 

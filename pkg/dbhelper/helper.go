@@ -16,6 +16,7 @@ func InsertTask(tosk model.Task) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	fmt.Println(inserted.InsertedID)
 }
 
@@ -34,6 +35,7 @@ func GetTasks() []primitive.M {
 		tasks = append(tasks, task)
 	}
 	defer cur.Close(context.Background())
+
 	return tasks
 }
 
@@ -50,6 +52,7 @@ func UpdateTask(toskId string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	fmt.Println(res.ModifiedCount)
 
 }
@@ -62,6 +65,7 @@ func DeleteTask(toskId string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	fmt.Println(delCount.DeletedCount)
 }
 
@@ -70,5 +74,6 @@ func DeleteTasks() int64 {
 	if err != nil {
 		log.Fatal(err)
 	}
+	
 	return deleteCount.DeletedCount
 }
