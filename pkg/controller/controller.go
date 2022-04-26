@@ -14,7 +14,7 @@ func InsertOneTask(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/x-www-form-urlencode")
 	w.Header().Set("Allow-Control-Allow-Methods", "POST")
 
-	var todo model.Task
+	var todo model.TaskBody
 	_ = json.NewDecoder(r.Body).Decode(&todo)
 	dbhelper.InsertTask(todo)
 	json.NewEncoder(w).Encode(todo)

@@ -11,8 +11,9 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func InsertTask(tosk model.Task) {
-	inserted, err := database.Callection.InsertOne(context.Background(), tosk)
+func InsertTask(task model.TaskBody) {
+
+	inserted, err := database.Callection.InsertOne(context.Background(), task)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -21,26 +22,31 @@ func InsertTask(tosk model.Task) {
 }
 
 func GetTasks() []primitive.M {
+
 	cur, err := database.Callection.Find(context.Background(), bson.D{})
 	if err != nil {
 		log.Fatal(err)
 	}
-	var tasks []primitive.M
+
+	var tasksList []primitive.M
+
 	for cur.Next(context.Background()) {
 		var task bson.M
 		err := cur.Decode(&task)
 		if err != nil {
 			log.Fatal(err)
 		}
-		tasks = append(tasks, task)
+		tasksList = append(tasksList, task)
 	}
+
 	defer cur.Close(context.Background())
 
-	return tasks
+	return tasksList
 }
 
-func UpdateTask(toskId string) {
-	id, err := primitive.ObjectIDFromHex(toskId)
+func UpdateTask(taskId string) {
+
+	id, err := primitive.ObjectIDFromHex(taskId)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -54,11 +60,11 @@ func UpdateTask(toskId string) {
 	}
 
 	fmt.Println(res.ModifiedCount)
-
 }
 
-func DeleteTask(toskId string) {
-	id, _ := primitive.ObjectIDFromHex(toskId)
+func DeleteTask(taskId string) {
+
+	id, _ := primitive.ObjectIDFromHex(taskId)
 	filter := bson.M{"_id": id}
 
 	delCount, err := database.Callection.DeleteOne(context.Background(), filter)
@@ -70,10 +76,11 @@ func DeleteTask(toskId string) {
 }
 
 func DeleteTasks() int64 {
+
 	deleteCount, err := database.Callection.DeleteMany(context.Background(), bson.D{{}})
 	if err != nil {
 		log.Fatal(err)
 	}
-	
+
 	return deleteCount.DeletedCount
 }

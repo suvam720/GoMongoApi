@@ -16,12 +16,15 @@ const colName = "task"
 var Callection *mongo.Collection
 
 func init() {
+
 	clientOption := options.Client().ApplyURI(connectionString)
 
 	client, err := mongo.Connect(context.TODO(), clientOption)
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	fmt.Println("Connection Sucessful")
+
 	Callection = client.Database(dbName).Collection(colName)
 }
